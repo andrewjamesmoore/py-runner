@@ -4,6 +4,7 @@
   color: var(--text-color);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .content {
@@ -11,4 +12,9 @@
   overflow: auto;
   padding: var(--space-small) var(--space-base) var(--space-largest);
   font: var(--text-base);
+  transition: margin-right 0.1s ease;
+}
+
+.content.shifted {
+  margin-right: var(--panel-width, 400px);
 }

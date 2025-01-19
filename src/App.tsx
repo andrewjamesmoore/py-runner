@@ -7,6 +7,7 @@ import { OutputDisplay } from "./components/OutputDisplay/OutputDisplay";
 import { CodeEditor } from "./components/CodeEditor/CodeEditor";
 import type { ReactCodeMirrorRef as CodeMirror } from "@uiw/react-codemirror";
 import styles from "./App.module.css";
+import { ReferencePanel } from "./components/ReferencePanel/ReferencePanel";
 
 interface HistoryEntry {
   input: string;
@@ -40,6 +41,7 @@ function App() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
   const [showSecurityInfo, setShowSecurityInfo] = useState(false);
+  const [showReference, setShowReference] = useState(false);
   const editorRef = useRef<CodeMirror | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const securityInfoRef = useRef<HTMLDivElement>(null);
@@ -238,13 +240,16 @@ __builtins__.open = None
       <Navbar
         showSecurityInfo={showSecurityInfo}
         setShowSecurityInfo={setShowSecurityInfo}
+        showReference={showReference}
+        setShowReference={setShowReference}
         maxExecutionTime={MAX_EXECUTION_TIME}
         maxMemory={MAX_MEMORY}
         onExecute={handleCommand}
         onClear={clearTerminal}
       />
-
-      <div className={styles.content}>
+      <div
+        className={`${styles.content} ${showReference ? styles.shifted : ""}`}
+      >
         <OutputDisplay history={history} />
         <CodeEditor
           editorRef={editorRef}
@@ -254,6 +259,10 @@ __builtins__.open = None
         />
         <div ref={bottomRef} />
       </div>
+      <ReferencePanel
+        isOpen={showReference}
+        onClose={() => setShowReference(false)}
+      />
     </div>
   );
 }

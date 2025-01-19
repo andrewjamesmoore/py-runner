@@ -1,4 +1,4 @@
-import { Terminal, PlayIcon, ShieldAlert } from "lucide-react";
+import { Terminal, PlayIcon, ShieldAlert, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { Menu } from "../Menu/Menu";
 import { Popup } from "../Popup/Popup";
@@ -8,6 +8,8 @@ import popupStyles from "../Popup/Popup.module.css";
 interface NavbarProps {
   showSecurityInfo: boolean;
   setShowSecurityInfo: (show: boolean) => void;
+  showReference: boolean;
+  setShowReference: (show: boolean) => void;
   maxExecutionTime: number;
   maxMemory: number;
   onExecute: () => void;
@@ -17,6 +19,8 @@ interface NavbarProps {
 export function Navbar({
   showSecurityInfo,
   setShowSecurityInfo,
+  showReference,
+  setShowReference,
   maxExecutionTime,
   maxMemory,
   onExecute,
@@ -90,10 +94,25 @@ export function Navbar({
                 label: "Reset console",
                 shortcut: "clear",
                 action: onClear,
+              },
+              {
+                label: "Python Reference",
+                shortcut: "⌘ + k",
+                action: () => setShowReference(true),
                 divider: true,
               },
             ]}
           />
+        </div>
+        <div className='relative'>
+          <button
+            onClick={() => setShowReference(!showReference)}
+            className={styles.navButton}
+            aria-label='Python Reference'
+            title='Reference'
+          >
+            <BookOpen size={20} className={styles.navIcon} />
+          </button>
         </div>
         <div className='relative'>
           <button
