@@ -25,6 +25,7 @@
   gap: var(--space-small);
   padding: 4px 12px;
   color: var(--text-color-alt);
+  background-color: var(--bg-surface-alt);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 300;
@@ -33,5 +34,5 @@
 
 .executeButton:hover {
   background-color: var(--bg-color-alt);
-  color: var(--text-color-alt);
+  color: var(--text-color);
 }

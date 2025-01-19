@@ -18,6 +18,21 @@
 
 .logo {
   color: var(--color-accent);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.menuContainer {
+  position: relative;
 }
 
 .title {
@@ -35,6 +50,11 @@
   padding: var(--space-small);
   border-radius: 0.5rem;
   transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
 .navButton:hover {
@@ -52,9 +72,10 @@
   color: var(--bg-color);
   padding: var(--space-smallest) var(--space-small);
   border-radius: 4px;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .runButton:hover {
-  opacity: 0.6;
+  opacity: 0.8;
+  background-color: var(--color-accent);
 }

@@ -31,11 +31,11 @@ export function Navbar({
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
-        <PlayIcon size={14} className={`${styles.logo} animate-pulse`} />
+        <PlayIcon size={14} className={styles.logo} />
         <div className={styles.title}>PyRunner</div>
       </div>
       <div className={styles.rightSection}>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowSecurityInfo(true)}
             className={styles.navButton}
@@ -71,7 +71,7 @@ export function Navbar({
             </>
           </Popup>
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowShortcuts(true)}
             className={styles.navButton}
@@ -104,7 +104,7 @@ export function Navbar({
             ]}
           />
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowReference(!showReference)}
             className={styles.navButton}
@@ -114,7 +114,7 @@ export function Navbar({
             <BookOpen size={20} className={styles.navIcon} />
           </button>
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={onExecute}
             className={styles.runButton}

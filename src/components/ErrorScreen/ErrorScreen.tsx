@@ -10,7 +10,7 @@ export function ErrorScreen({ error, onRetry }: ErrorScreenProps) {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <AlertTriangle size={24} className='text-red-500' />
+        <AlertTriangle size={24} className={styles.alertIcon} />
         <div className={styles.title}>Initialization Error</div>
         <p className={styles.message}>{error}</p>
         <button onClick={onRetry} className={styles.retryButton}>

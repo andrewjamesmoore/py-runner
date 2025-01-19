@@ -40,3 +40,7 @@
 .retryButton:hover {
   background-color: rgb(21 128 61);
 }
+
+.alertIcon {
+  color: rgb(239 68 68);
+}
