@@ -1,6 +1,6 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useEffect } from "react";
 import { closeBrackets } from "@codemirror/autocomplete";
 import { PlayIcon } from "lucide-react";
 import styles from "./CodeEditor.module.css";
@@ -27,8 +27,19 @@ export function CodeEditor({
     [setCurrentInput]
   );
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      editorRef.current?.view?.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [editorRef]);
+
+  const handleContainerClick = () => {
+    editorRef.current?.view?.focus();
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleContainerClick}>
       <div className={styles.editorWrapper}>
         <div className={styles.editorContainer}>
           <CodeMirror

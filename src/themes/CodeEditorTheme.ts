@@ -11,6 +11,8 @@ export const darkTheme = createTheme({
     gutterForeground: "var(--text-color-alt)",
     selection: "var(--color-selection)",
     selectionMatch: "var(--color-selection-match)",
+    cursor: "block",
+    cursorBlinkRate: 530,
   },
   styles: [
     { tag: t.comment, color: "var(--color-comment)" },

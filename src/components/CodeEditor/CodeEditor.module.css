@@ -1,12 +1,25 @@
 .container {
   color: var(--color-accent);
   margin: var(--space-small) calc(var(--space-base) * -1) 0;
+  cursor: text;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.editorWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .editorContainer {
   position: relative;
   padding: 0 var(--space-base);
   margin-left: -4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .executeButton {
@@ -27,4 +40,14 @@
 .executeButton:hover {
   background-color: var(--bg-color-alt);
   color: var(--text-color);
+}
+
+.container :global(.cm-cursor) {
+  border-left: 6px solid var(--color-accent);
+}
+
+.container :global(.cm-placeholder) {
+  color: var(--text-color-subdued);
+  pointer-events: none;
+  position: absolute;
 }
