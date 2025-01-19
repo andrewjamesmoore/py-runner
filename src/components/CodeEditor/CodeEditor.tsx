@@ -57,52 +57,32 @@ export function CodeEditor({
   setCurrentInput,
   handleKeyDown,
 }: CodeEditorProps) {
-  const handleEditorKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        const editor = editorRef.current?.view;
-        if (editor) {
-          const cursor = editor.state.selection.main.head;
-          const line = editor.state.doc.lineAt(cursor);
-          const text = line.text;
-          setCurrentInput(text);
-          handleKeyDown(e);
-        }
-      } else if (e.key === "Enter" && e.shiftKey) {
-        return false;
-      } else {
-        handleKeyDown(e);
-      }
+  const onChange = useCallback(
+    (value: string) => {
+      // Remove any newlines that might have been added
+      const singleLineValue = value.replace(/\n/g, "");
+      setCurrentInput(singleLineValue);
     },
-    [editorRef, handleKeyDown, setCurrentInput]
+    [setCurrentInput]
   );
 
   return (
     <div className={styles.container}>
-      <span className={styles.prompt}>&gt;&gt;&gt; </span>
+      <span className={styles.prompt}>&gt;&gt;&gt;</span>
       <div className={styles.editorWrapper}>
         <CodeMirror
           ref={editorRef}
           value={currentInput}
+          onChange={onChange}
+          onKeyDown={handleKeyDown}
+          extensions={[python(), closeBrackets()]}
           theme={customTheme}
-          extensions={[
-            python(),
-            closeBrackets(),
-            preventNewlineFilter,
-            EditorState.allowMultipleSelections.of(false),
-          ]}
-          onChange={setCurrentInput}
-          onKeyDown={handleEditorKeyDown}
-          className={styles.editor}
           basicSetup={{
             lineNumbers: false,
             foldGutter: false,
             dropCursor: false,
             allowMultipleSelections: false,
-            indentOnInput: true,
-            closeBrackets: false,
-            autocompletion: true,
+            indentOnInput: false,
           }}
         />
       </div>
