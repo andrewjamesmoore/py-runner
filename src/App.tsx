@@ -8,6 +8,7 @@ import { CodeEditor } from "./components/CodeEditor/CodeEditor";
 import type { ReactCodeMirrorRef as CodeMirror } from "@uiw/react-codemirror";
 import styles from "./App.module.css";
 import { ReferencePanel } from "./components/ReferencePanel/ReferencePanel";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 
 interface HistoryEntry {
   input: string;
@@ -113,97 +114,99 @@ __builtins__.open = None
     setCurrentInput("");
   }, []);
 
-  const handleCommand = useCallback(async () => {
-    if (!pyodide || !currentInput.trim() || isExecuting) return;
+  const handleCommand = useCallback(
+    async (manualInput?: string) => {
+      const input = manualInput || currentInput;
+      if (!pyodide || !input.trim() || isExecuting) return;
 
-    if (currentInput.trim().toLowerCase() === "clear") {
-      clearTerminal();
-      return;
-    }
+      if (input.trim().toLowerCase() === "clear") {
+        clearTerminal();
+        return;
+      }
 
-    if (!validateCode(currentInput)) {
-      setHistory((prev) => [
-        ...prev,
-        {
-          input: currentInput,
-          output:
-            "Error: This code contains blocked operations for security reasons.",
-          error: true,
-        },
-      ]);
-      setCurrentInput("");
-      return;
-    }
+      if (!validateCode(input)) {
+        setHistory((prev) => [
+          ...prev,
+          {
+            input: input,
+            output:
+              "Error: This code contains blocked operations for security reasons.",
+            error: true,
+          },
+        ]);
+        setCurrentInput("");
+        return;
+      }
 
-    setIsExecuting(true);
-    let timeoutId: number = 0;
+      setIsExecuting(true);
+      let timeoutId: number = 0;
 
-    try {
-      const executionPromise = async () => {
-        await pyodide.runPythonAsync(
-          "_temp_stdout = io.StringIO()\nsys.stdout = _temp_stdout"
-        );
-        try {
-          const result = await pyodide.runPythonAsync(currentInput);
-          const output = await pyodide.runPythonAsync(
-            "_temp_stdout.getvalue()"
-          );
-
-          if (
-            !output.trim() &&
-            !currentInput.includes("=") &&
-            !currentInput.includes("(")
-          ) {
-            const varOutput = await pyodide.runPythonAsync(
-              `repr(${currentInput})`
-            );
-            return { result, output: varOutput };
-          }
-
-          return { result, output };
-        } finally {
+      try {
+        const executionPromise = async () => {
           await pyodide.runPythonAsync(
-            "sys.stdout = sys.original_stdout\ndel _temp_stdout"
+            "_temp_stdout = io.StringIO()\nsys.stdout = _temp_stdout"
           );
-        }
-      };
+          try {
+            const result = await pyodide.runPythonAsync(input);
+            const output = await pyodide.runPythonAsync(
+              "_temp_stdout.getvalue()"
+            );
 
-      const timeoutPromise = new Promise((_, reject) => {
-        timeoutId = window.setTimeout(
-          () => reject(new Error("Execution timed out")),
-          MAX_EXECUTION_TIME
-        );
-      });
+            if (
+              !output.trim() &&
+              !input.includes("=") &&
+              !input.includes("(")
+            ) {
+              const varOutput = await pyodide.runPythonAsync(`repr(${input})`);
+              return { result, output: varOutput };
+            }
 
-      const { result, output } = (await Promise.race([
-        executionPromise(),
-        timeoutPromise,
-      ])) as ExecutionResult;
+            return { result, output };
+          } finally {
+            await pyodide.runPythonAsync(
+              "sys.stdout = sys.original_stdout\ndel _temp_stdout"
+            );
+          }
+        };
 
-      setHistory((prev) => [
-        ...prev,
-        {
-          input: currentInput,
-          output:
-            output.trim() ||
-            (result !== undefined ? String(result) : undefined),
-        },
-      ]);
-    } catch (error: Error | unknown) {
-      setHistory((prev) => [
-        ...prev,
-        {
-          input: currentInput,
-          output: error instanceof Error ? error.message : String(error),
-          error: true,
-        },
-      ]);
-    } finally {
-      clearTimeout(timeoutId);
-      setIsExecuting(false);
-      setCurrentInput("");
-    }
-  }, [currentInput, pyodide, isExecuting, validateCode, clearTerminal]);
+        const timeoutPromise = new Promise((_, reject) => {
+          timeoutId = window.setTimeout(
+            () => reject(new Error("Execution timed out")),
+            MAX_EXECUTION_TIME
+          );
+        });
+
+        const { result, output } = (await Promise.race([
+          executionPromise(),
+          timeoutPromise,
+        ])) as ExecutionResult;
+
+        setHistory((prev) => [
+          ...prev,
+          {
+            input: input,
+            output:
+              output.trim() ||
+              (result !== undefined ? String(result) : undefined),
+          },
+        ]);
+      } catch (error: Error | unknown) {
+        setHistory((prev) => [
+          ...prev,
+          {
+            input: input,
+            output: error instanceof Error ? error.message : String(error),
+            error: true,
+          },
+        ]);
+      } finally {
+        clearTimeout(timeoutId);
+        setIsExecuting(false);
+        setCurrentInput("");
+      }
+    },
+    [currentInput, pyodide, isExecuting, validateCode, clearTerminal]
+  );
 
   useEffect(() => {
     initPyodide();
@@ -212,6 +215,20 @@ __builtins__.open = None
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
+
+  useKeyboardShortcuts([
+    {
+      key: "k",
+      ctrl: true,
+      action: () => setShowReference((prev) => !prev),
+    },
+    {
+      key: "Enter",
+      ctrl: true,
+      action: handleCommand,
+      disabled: isExecuting,
+    },
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -262,6 +279,7 @@ __builtins__.open = None
       <ReferencePanel
         isOpen={showReference}
         onClose={() => setShowReference(false)}
+        onExecute={(code) => handleCommand(code)}
       />
     </div>
   );

@@ -1,11 +1,10 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
-import { createTheme } from "@uiw/codemirror-themes";
-import { tags as t } from "@lezer/highlight";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useEffect } from "react";
 import { closeBrackets } from "@codemirror/autocomplete";
 import { PlayIcon } from "lucide-react";
 import styles from "./CodeEditor.module.css";
+import { darkTheme } from "../../themes/CodeEditorTheme";
 import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
 interface CodeEditorProps {
@@ -14,26 +13,6 @@ interface CodeEditorProps {
   setCurrentInput: (value: string) => void;
   onExecute: () => void;
 }
-
-const customTheme = createTheme({
-  theme: "dark",
-  settings: {
-    foreground: "var(--text-color-alt)",
-    caret: "var(--color-accent)",
-    lineHighlight: "var(--bg-color)",
-    gutterBackground: "transparent",
-    gutterForeground: "var(--text-color-alt)",
-  },
-  styles: [
-    { tag: t.comment, color: "var(--color-accent-subdued)" },
-    { tag: t.variableName, color: "var(--text-color)" },
-    { tag: t.string, color: "var(--color-accent)" },
-    { tag: t.number, color: "#ffb662" },
-    { tag: [t.keyword, t.operator], color: "#ff79c6" },
-    { tag: t.definitionKeyword, color: "#ff79c6" },
-    { tag: t.function(t.variableName), color: "var(--color-accent)" },
-  ],
-});
 
 export function CodeEditor({
   editorRef,
@@ -48,34 +27,33 @@ export function CodeEditor({
     [setCurrentInput]
   );
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      // Command/Ctrl + Enter to execute
-      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-        e.preventDefault();
-        onExecute();
-      }
-    },
-    [onExecute]
-  );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      editorRef.current?.view?.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [editorRef]);
+
+  const handleContainerClick = () => {
+    editorRef.current?.view?.focus();
+  };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleContainerClick}>
       <div className={styles.editorWrapper}>
         <div className={styles.editorContainer}>
           <CodeMirror
             ref={editorRef}
             value={currentInput}
             onChange={onChange}
-            onKeyDown={handleKeyDown}
             extensions={[python(), closeBrackets()]}
-            theme={customTheme}
+            theme={darkTheme}
             basicSetup={{
               lineNumbers: true,
-              foldGutter: true,
+              foldGutter: false,
               dropCursor: true,
-              allowMultipleSelections: true,
               indentOnInput: true,
+              allowMultipleSelections: true,
             }}
           />
           {currentInput.trim() && (

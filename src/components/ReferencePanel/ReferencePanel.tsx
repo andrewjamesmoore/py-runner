@@ -1,14 +1,20 @@
 import { useRef, useEffect, useState } from "react";
 import { GripVertical } from "lucide-react";
 import styles from "./ReferencePanel.module.css";
+import { BuiltinFunctions } from "./BuiltinFunctions";
 
 interface ReferencePanelProps {
   isOpen: boolean;
   onClose: () => void;
+  onExecute: (code: string) => void;
 }
 
-export function ReferencePanel({ isOpen, onClose }: ReferencePanelProps) {
-  const [width, setWidth] = useState(400);
+export function ReferencePanel({
+  isOpen,
+  onClose,
+  onExecute,
+}: ReferencePanelProps) {
+  const [width, setWidth] = useState(600);
   const [isDragging, setIsDragging] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -74,6 +80,13 @@ export function ReferencePanel({ isOpen, onClose }: ReferencePanelProps) {
         <button onClick={onClose} className={styles.closeButton}>
           Close
         </button>
+      </div>
+      <div className={styles.content}>
+        <BuiltinFunctions
+          onExampleClick={(example) => {
+            onExecute(example);
+          }}
+        />
       </div>
     </div>
   );

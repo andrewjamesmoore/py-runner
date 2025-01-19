@@ -40,9 +40,8 @@ export function Menu({ isOpen, onClose, items, title }: MenuProps) {
     <div ref={menuRef} className={styles.menu}>
       {title && <div className={styles.menuTitle}>{title}</div>}
       {items.map((item, index) => (
-        <>
+        <div key={`menu-item-${index}`}>
           <div
-            key={index}
             className={styles.menuItem}
             onClick={() => {
               item.action?.();
@@ -55,7 +54,7 @@ export function Menu({ isOpen, onClose, items, title }: MenuProps) {
             <span className={styles.shortcut}>{item.shortcut}</span>
           </div>
           {item.divider && <div className={styles.divider} />}
-        </>
+        </div>
       ))}
     </div>
   );

@@ -3,9 +3,21 @@
   --bg-color-alt: #323232;
   --bg-surface-alt: #2d2d2d;
   --color-accent: #a3e635;
+  --color-accent-alt: #cf37f0;
   --color-accent-subdued: #a5a5a5;
+  --color-alert: rgb(248 113 113);
   --text-color: white;
   --text-color-alt: #bababa;
   --text-color-subdued: #848484;
   --border: #2b2b2b;
+  --border-alternate: #424242;
+
+  /* Code Editor Dark Theme */
+  --color-type-tags: #a3e635;
+  --color-name-tags: #c9aef5;
+  --color-line-highlight: #1f1f1f;
+  --color-gutter-background: #1f1f1f;
+  --color-comment: #848484;
+  --color-selection: #323232;
+  --color-selection-match: #595959;
 }

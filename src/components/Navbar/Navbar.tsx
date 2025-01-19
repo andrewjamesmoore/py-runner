@@ -28,14 +28,36 @@ export function Navbar({
 }: NavbarProps) {
   const [showShortcuts, setShowShortcuts] = useState(false);
 
+  const menuItems = [
+    {
+      label: "Run program",
+      shortcut: "⌘ + enter",
+      action: onExecute,
+    },
+    {
+      label: "Reset console",
+      shortcut: "clear",
+      action: onClear,
+    },
+    {
+      label: "Python Reference",
+      shortcut: "⌘ + k",
+      action: () => {
+        setShowReference(!showReference);
+        setShowShortcuts(false); // Close the menu after clicking
+      },
+      divider: true,
+    },
+  ];
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
-        <PlayIcon size={14} className={`${styles.logo} animate-pulse`} />
+        <PlayIcon size={14} className={styles.logo} />
         <div className={styles.title}>PyRunner</div>
       </div>
       <div className={styles.rightSection}>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowSecurityInfo(true)}
             className={styles.navButton}
@@ -71,7 +93,7 @@ export function Navbar({
             </>
           </Popup>
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowShortcuts(true)}
             className={styles.navButton}
@@ -84,27 +106,10 @@ export function Navbar({
             isOpen={showShortcuts}
             onClose={() => setShowShortcuts(false)}
             title='Commands'
-            items={[
-              {
-                label: "Run program",
-                shortcut: "⌘ + enter",
-                action: onExecute,
-              },
-              {
-                label: "Reset console",
-                shortcut: "clear",
-                action: onClear,
-              },
-              {
-                label: "Python Reference",
-                shortcut: "⌘ + k",
-                action: () => setShowReference(true),
-                divider: true,
-              },
-            ]}
+            items={menuItems}
           />
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={() => setShowReference(!showReference)}
             className={styles.navButton}
@@ -114,7 +119,7 @@ export function Navbar({
             <BookOpen size={20} className={styles.navIcon} />
           </button>
         </div>
-        <div className='relative'>
+        <div className={styles.menuContainer}>
           <button
             onClick={onExecute}
             className={styles.runButton}

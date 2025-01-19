@@ -1,31 +1,37 @@
 .container {
   color: var(--color-accent);
-  padding: var(--space-small) 0 0 0;
-}
-
-.prompt {
-  user-select: none;
-  padding-top: var(--space-smallest);
+  margin: var(--space-small) calc(var(--space-base) * -1) 0;
+  cursor: text;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .editorWrapper {
-  position: static;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .editorContainer {
   position: relative;
+  padding: 0 var(--space-base);
+  margin-left: -10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .executeButton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: var(--space-small);
+  right: var(--space-small);
   display: flex;
   align-items: center;
   gap: var(--space-small);
-  padding: 4px 12px;
+  padding: var(--space-smallest) var(--space-base);
   color: var(--text-color-alt);
-  border-radius: 4px;
+  border-radius: var(--space-smallest);
   font-size: 12px;
   font-weight: 300;
   transition: all 0.3s ease;
@@ -33,5 +39,15 @@
 
 .executeButton:hover {
   background-color: var(--bg-color-alt);
-  color: var(--text-color-alt);
+  color: var(--text-color);
+}
+
+.container :global(.cm-cursor) {
+  border-left: 6px solid var(--color-accent);
+}
+
+.container :global(.cm-placeholder) {
+  color: var(--text-color-subdued);
+  pointer-events: none;
+  position: absolute;
 }
