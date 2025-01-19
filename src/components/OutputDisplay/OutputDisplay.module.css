@@ -1,0 +1,75 @@
+.entry {
+  margin-bottom: 1rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: top left;
+}
+
+.entry:last-child {
+  animation: slideIn 0.3s ease forwards;
+  transform-origin: top left;
+}
+
+.input {
+  color: rgb(163 230 53);
+  min-height: 1.5rem;
+}
+
+.prompt {
+  user-select: none;
+  padding-top: var(--space-smallest);
+  font-family: "DM Mono", monospace;
+  line-height: 1.5;
+  display: inline-block;
+  width: 3ch;
+}
+
+.inputText {
+  white-space: pre-wrap;
+  display: inline-block;
+}
+
+.output {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-color: rgba(20, 83, 45, 0.5);
+  background-color: rgba(20, 83, 45, 0.2);
+  padding: 0.5rem 1rem;
+  white-space: pre-wrap;
+  opacity: 0;
+  transform: translateY(-5px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.errorOutput {
+  color: rgb(248 113 113);
+}
+
+.successOutput {
+  color: rgb(74 222 128);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) translateX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
