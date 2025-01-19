@@ -14,7 +14,7 @@ export function ErrorScreen({ error, onRetry }: ErrorScreenProps) {
         <div className={styles.text}>Initialization Error</div>
         <p className={styles.message}>{error}</p>
         <button onClick={onRetry} className={styles.retryButton}>
-          <RefreshCw size={16} />
+          <RefreshCw size={14} />
           Retry
         </button>
       </div>

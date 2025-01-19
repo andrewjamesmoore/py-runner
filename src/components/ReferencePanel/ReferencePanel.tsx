@@ -14,7 +14,7 @@ export function ReferencePanel({
   onClose,
   onExecute,
 }: ReferencePanelProps) {
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState(600);
   const [isDragging, setIsDragging] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 

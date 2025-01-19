@@ -9,6 +9,18 @@
   align-items: center;
   padding: var(--space-base);
   border-bottom: 1px solid var(--border);
+  gap: var(--space-base);
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchBar {
+    width: 100%;
+  }
 }
 
 .title {
@@ -25,6 +37,8 @@
   border-radius: var(--space-smallest);
   transition: all 0.2s;
   width: 240px;
+  min-width: 120px;
+  flex-shrink: 1;
 }
 
 .searchBar:focus-within {
@@ -100,9 +114,18 @@
   border: 1px solid var(--border-alternate);
   border-radius: 4px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: var(--space-base);
+  gap: var(--space-small);
+  overflow-x: auto;
+}
+
+.example code {
+  overflow-x: auto;
+  white-space: pre;
+  flex: 1;
+  min-width: 0;
 }
 
 .copyButton {
@@ -116,6 +139,8 @@
   font-weight: 300;
   transition: all 0.3s ease;
   opacity: 0;
+  align-self: flex-end;
+  white-space: nowrap;
 }
 
 .example:hover .copyButton {
@@ -125,6 +150,17 @@
 .copyButton:hover {
   background-color: var(--bg-color-alt);
   color: var(--text-color);
+}
+
+@media (max-width: 380px) {
+  .example {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .copyButton {
+    align-self: flex-end;
+  }
 }
 
 .comingSoon {

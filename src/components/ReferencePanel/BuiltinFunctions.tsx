@@ -1,26 +1,7 @@
 import { useState } from "react";
-import { Play, Search, Terminal } from "lucide-react";
+import { Play } from "lucide-react";
 import styles from "./BuiltinFunctions.module.css";
-
-interface PythonFunction {
-  name: string;
-  description: string;
-  example: string;
-}
-
-const BUILTIN_FUNCTIONS: PythonFunction[] = [
-  {
-    name: "abs(x)",
-    description: "Return the absolute value of a number",
-    example: "abs(-5)  # Returns: 5",
-  },
-  {
-    name: "len(obj)",
-    description: "Return the length (number of items) of an object",
-    example: 'len("hello")  # Returns: 5',
-  },
-  // Add more functions here...
-];
+import { BUILTIN_FUNCTIONS } from "../../data/builtinFunctions";
 
 interface BuiltinFunctionsProps {
   onExampleClick: (example: string) => void;
