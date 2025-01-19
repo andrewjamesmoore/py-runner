@@ -8,7 +8,6 @@
   user-select: none;
   padding-top: var(--space-smallest);
   font-family: "DM Mono", monospace;
-  line-height: 1.5;
 }
 
 .editorWrapper {

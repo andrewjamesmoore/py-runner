@@ -4,11 +4,11 @@ import { createTheme } from "@uiw/codemirror-themes";
 import { tags as t } from "@lezer/highlight";
 import { RefObject, useCallback } from "react";
 import { closeBrackets } from "@codemirror/autocomplete";
-import { EditorState, TransactionSpec } from "@codemirror/state";
 import styles from "./CodeEditor.module.css";
+import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
 interface CodeEditorProps {
-  editorRef: RefObject<any>;
+  editorRef: RefObject<ReactCodeMirrorRef>;
   currentInput: string;
   setCurrentInput: (value: string) => void;
   handleKeyDown: (e: React.KeyboardEvent) => void;
@@ -34,21 +34,6 @@ const customTheme = createTheme({
     { tag: t.definitionKeyword, color: "#ff79c6" },
     { tag: t.function(t.variableName), color: "#50fa7b" },
   ],
-});
-
-// Custom transaction filter to prevent newlines after auto-closing
-const preventNewlineFilter = EditorState.transactionFilter.of((tr) => {
-  if (tr.newDoc.lines > tr.startState.doc.lines) {
-    const spec: TransactionSpec = {
-      changes: {
-        from: 0,
-        to: tr.newDoc.length,
-        insert: tr.newDoc.line(1).text,
-      },
-    };
-    return [tr, { ...spec }];
-  }
-  return tr;
 });
 
 export function CodeEditor({
