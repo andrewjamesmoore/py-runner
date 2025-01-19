@@ -16,7 +16,6 @@ export function OutputDisplay({ history }: OutputDisplayProps) {
       {history.map((entry, index) => (
         <div key={index} className={styles.entry}>
           <div className={styles.input}>
-            <span className={styles.prompt}>&gt;&gt;&gt; </span>
             <span className={styles.inputText}>{entry.input}</span>
           </div>
           {entry.output && (

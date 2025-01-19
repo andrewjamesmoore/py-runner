@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: flex-start;
-  color: rgb(163 230 53); /* text-lime-400 */
+  color: var(--color-accent);
 }
 
 .prompt {
@@ -15,13 +15,4 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.warningMessage {
-  color: rgb(250 204 21); /* text-yellow-400 */
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid rgba(234 179 8 / 0.2); /* border-yellow-500/20 */
-  background-color: rgba(234 179 8 / 0.1); /* bg-yellow-500/10 */
-  border-radius: 0.25rem;
 }

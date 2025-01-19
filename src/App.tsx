@@ -1,16 +1,22 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { loadPyodide } from "pyodide";
+import { loadPyodide, PyodideInterface } from "pyodide";
 import { Navbar } from "./components/Navbar/Navbar";
 import { LoadingScreen } from "./components/LoadingScreen/LoadingScreen";
 import { ErrorScreen } from "./components/ErrorScreen/ErrorScreen";
 import { OutputDisplay } from "./components/OutputDisplay/OutputDisplay";
 import { CodeEditor } from "./components/CodeEditor/CodeEditor";
+import type { ReactCodeMirrorRef as CodeMirror } from "@uiw/react-codemirror";
 import styles from "./App.module.css";
 
 interface HistoryEntry {
   input: string;
   output?: string;
   error?: boolean;
+}
+
+interface ExecutionResult {
+  result: unknown;
+  output: string;
 }
 
 const BLOCKED_MODULES = new Set([
@@ -27,22 +33,22 @@ const MAX_EXECUTION_TIME = 5000;
 const MAX_MEMORY = 50 * 1024 * 1024;
 
 function App() {
-  const [pyodide, setPyodide] = useState<any>(null);
+  const [pyodide, setPyodide] = useState<PyodideInterface | null>(null);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [currentInput, setCurrentInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [setShowClearConfirm] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
   const [showSecurityInfo, setShowSecurityInfo] = useState(false);
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<CodeMirror | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const securityInfoRef = useRef<HTMLDivElement>(null);
 
-  const setupPythonEnvironment = useCallback(async (pyodideInstance: any) => {
-    try {
-      await pyodideInstance.runPythonAsync(`
+  const setupPythonEnvironment = useCallback(
+    async (pyodideInstance: PyodideInterface) => {
+      try {
+        await pyodideInstance.runPythonAsync(`
 import sys
 import io
 
@@ -60,12 +66,14 @@ sys.original_stdout = sys.stdout
 __builtins__.__import__ = SecureImport()
 __builtins__.open = None
       `);
-    } catch (error: any) {
-      throw new Error(
-        "Failed to configure Python environment security settings"
-      );
-    }
-  }, []);
+      } catch {
+        throw new Error(
+          "Failed to configure Python environment security settings"
+        );
+      }
+    },
+    []
+  );
 
   const initPyodide = useCallback(async () => {
     setLoading(true);
@@ -77,7 +85,7 @@ __builtins__.open = None
 
       await setupPythonEnvironment(pyodideInstance);
       setPyodide(pyodideInstance);
-    } catch (error: any) {
+    } catch {
       setInitError(
         "Failed to initialize Python environment. Please try again."
       );
@@ -98,6 +106,28 @@ __builtins__.open = None
           )
       );
   }, []);
+
+  const clearTerminal = useCallback(async () => {
+    setHistory([]);
+    setCurrentInput("");
+    setHistoryIndex(-1);
+
+    if (pyodide) {
+      try {
+        await pyodide.runPythonAsync(`
+          import sys, gc
+          keep_modules = {'sys', 'io', 'builtins'}
+          for name in list(sys.modules.keys()):
+              if name not in keep_modules:
+                  del sys.modules[name]
+          sys.stdout = sys.original_stdout
+          gc.collect()
+        `);
+      } catch (error) {
+        console.error("Error clearing terminal:", error);
+      }
+    }
+  }, [pyodide]);
 
   const handleCommand = useCallback(async () => {
     if (!pyodide || !currentInput.trim() || isExecuting) return;
@@ -164,7 +194,7 @@ __builtins__.open = None
       const { result, output } = (await Promise.race([
         executionPromise(),
         timeoutPromise,
-      ])) as any;
+      ])) as ExecutionResult;
 
       setHistory((prev) => [
         ...prev,
@@ -190,29 +220,7 @@ __builtins__.open = None
       setCurrentInput("");
       setHistoryIndex(-1);
     }
-  }, [currentInput, pyodide, isExecuting, validateCode]);
-
-  const clearTerminal = useCallback(async () => {
-    setHistory([]);
-    setCurrentInput("");
-    setHistoryIndex(-1);
-
-    if (pyodide) {
-      try {
-        await pyodide.runPythonAsync(`
-import sys, gc
-keep_modules = {'sys', 'io', 'builtins'}
-for name in list(sys.modules.keys()):
-    if name not in keep_modules:
-        del sys.modules[name]
-sys.stdout = sys.original_stdout
-gc.collect()
-        `);
-      } catch (error) {
-        console.error("Error clearing terminal:", error);
-      }
-    }
-  }, [pyodide]);
+  }, [currentInput, pyodide, isExecuting, validateCode, clearTerminal]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -240,7 +248,7 @@ gc.collect()
         }
       }
     },
-    [historyIndex, history.length, handleCommand]
+    [historyIndex, history, handleCommand]
   );
 
   useEffect(() => {

@@ -12,7 +12,7 @@
 }
 
 .input {
-  color: rgb(163 230 53);
+  color: var(--text-color-alt);
   min-height: 1.5rem;
 }
 
@@ -35,9 +35,8 @@
   margin-bottom: 0.5rem;
   border-top-width: 1px;
   border-bottom-width: 1px;
-  border-color: rgba(20, 83, 45, 0.5);
-  background-color: rgba(20, 83, 45, 0.2);
-  padding: 0.5rem 1rem;
+  border-color: rgba(57, 57, 57, 0.5);
+  padding: 0.5rem 2rem 0.5rem 0;
   white-space: pre-wrap;
   opacity: 0;
   transform: translateY(-5px);
@@ -49,7 +48,16 @@
 }
 
 .successOutput {
-  color: rgb(74 222 128);
+  color: var(--color-accent);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.successOutput::before {
+  content: "→";
+  display: inline-block;
+  color: var(--color-accent);
 }
 
 @keyframes fadeIn {
