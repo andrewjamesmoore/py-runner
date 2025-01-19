@@ -1,3 +1,6 @@
 :root {
   --text-base: normal 300 14px/1.5 "DM Mono", monospace, sans-serif;
+  --text-alternate: normal 400 14px/1.5 "DM Sans", Arial, sans-serif;
+  --heading-base: normal 500 16px/1.5 "DM Mono", monospace, sans-serif;
+  --heading-alternate: normal 600 16px/1.5 "DM Sans", Arial, sans-serif;
 }

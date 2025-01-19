@@ -2,7 +2,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import { createTheme } from "@uiw/codemirror-themes";
 import { tags as t } from "@lezer/highlight";
-import { RefObject, useCallback, useState } from "react";
+import { RefObject, useCallback } from "react";
 import { closeBrackets } from "@codemirror/autocomplete";
 import { PlayIcon } from "lucide-react";
 import styles from "./CodeEditor.module.css";
@@ -18,10 +18,8 @@ interface CodeEditorProps {
 const customTheme = createTheme({
   theme: "dark",
   settings: {
-    background: "transparent",
     foreground: "var(--text-color-alt)",
     caret: "var(--color-accent)",
-    selection: "rgba(163, 230, 53, 0.1)",
     lineHighlight: "var(--bg-color)",
     gutterBackground: "transparent",
     gutterForeground: "var(--text-color-alt)",
@@ -43,8 +41,6 @@ export function CodeEditor({
   setCurrentInput,
   onExecute,
 }: CodeEditorProps) {
-  const [showExecuteButton, setShowExecuteButton] = useState(false);
-
   const onChange = useCallback(
     (value: string) => {
       setCurrentInput(value);
@@ -64,37 +60,35 @@ export function CodeEditor({
   );
 
   return (
-    <div
-      className={styles.container}
-      onMouseEnter={() => setShowExecuteButton(true)}
-      onMouseLeave={() => setShowExecuteButton(false)}
-    >
+    <div className={styles.container}>
       <div className={styles.editorWrapper}>
-        <CodeMirror
-          ref={editorRef}
-          value={currentInput}
-          onChange={onChange}
-          onKeyDown={handleKeyDown}
-          extensions={[python(), closeBrackets()]}
-          theme={customTheme}
-          basicSetup={{
-            lineNumbers: true,
-            foldGutter: true,
-            dropCursor: true,
-            allowMultipleSelections: true,
-            indentOnInput: true,
-          }}
-        />
-        {showExecuteButton && currentInput.trim() && (
-          <button
-            onClick={onExecute}
-            className={styles.executeButton}
-            title='Run (⌘/Ctrl + Enter)'
-          >
-            <PlayIcon size={12} />
-            cmd + enter
-          </button>
-        )}
+        <div className={styles.editorContainer}>
+          <CodeMirror
+            ref={editorRef}
+            value={currentInput}
+            onChange={onChange}
+            onKeyDown={handleKeyDown}
+            extensions={[python(), closeBrackets()]}
+            theme={customTheme}
+            basicSetup={{
+              lineNumbers: true,
+              foldGutter: true,
+              dropCursor: true,
+              allowMultipleSelections: true,
+              indentOnInput: true,
+            }}
+          />
+          {currentInput.trim() && (
+            <button
+              onClick={onExecute}
+              className={styles.executeButton}
+              title='Run (⌘/Ctrl + Enter)'
+            >
+              <PlayIcon size={12} />
+              cmd + enter
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

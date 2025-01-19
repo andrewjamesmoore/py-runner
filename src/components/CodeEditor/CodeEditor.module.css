@@ -1,5 +1,4 @@
 .container {
-  position: relative;
   color: var(--color-accent);
   padding: var(--space-small) 0 0 0;
 }
@@ -10,10 +9,10 @@
 }
 
 .editorWrapper {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  position: static;
+}
+
+.editorContainer {
   position: relative;
 }
 
@@ -29,12 +28,10 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: 300;
-  transition: opacity 0.3s ease;
-  opacity: 0.9;
+  transition: all 0.3s ease;
 }
 
 .executeButton:hover {
   background-color: var(--bg-color-alt);
   color: var(--text-color-alt);
-  opacity: 1;
 }

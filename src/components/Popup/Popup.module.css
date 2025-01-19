@@ -3,44 +3,38 @@
   right: 0;
   top: 100%;
   margin-top: var(--space-small);
-  width: 20rem;
-  background-color: var(--bg-color-alt);
+  width: 25rem;
+  background-color: var(--bg-surface-alt);
+  font: var(--text-alternate);
+  color: var(--text-color);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(234, 179, 8, 0.2);
-  z-index: 50;
+  border: 1px solid var(--border);
+  z-index: 100;
+  isolation: isolate;
 }
 
 .content {
   padding: var(--space-base);
-}
-
-.header {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-small);
-}
-
-.icon {
-  color: #eab308;
-  margin-top: var(--space-smallest);
-  flex-shrink: 0;
+  position: relative;
 }
 
 .title {
-  font-weight: var(--text-weight-bold);
-  color: #fef08a;
+  font: var(--heading-alternate);
   margin-bottom: var(--space-small);
 }
 
 .text {
-  font-size: 0.875rem;
   color: var(--text-color-alt);
   margin-bottom: var(--space-small);
 }
 
+.subhead {
+  font-size: 14px;
+  margin: var(--space-base) 0 var(--space-smallest);
+}
+
 .list {
-  font-size: 0.875rem;
   color: var(--text-color-alt);
   margin-left: var(--space-base);
   list-style-type: disc;
@@ -48,4 +42,6 @@
 
 .listItem {
   margin-top: var(--space-smallest);
+  opacity: 0.8;
+  line-height: 1.5;
 }

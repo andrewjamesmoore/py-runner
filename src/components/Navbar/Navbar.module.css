@@ -28,7 +28,7 @@
 .rightSection {
   display: flex;
   align-items: center;
-  gap: var(--space-base);
+  gap: var(--space-large);
 }
 
 .navButton {

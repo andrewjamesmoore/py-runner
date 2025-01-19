@@ -106,26 +106,10 @@ __builtins__.open = None
       );
   }, []);
 
-  const clearTerminal = useCallback(async () => {
+  const clearTerminal = useCallback(() => {
     setHistory([]);
     setCurrentInput("");
-
-    if (pyodide) {
-      try {
-        await pyodide.runPythonAsync(`
-          import sys, gc
-          keep_modules = {'sys', 'io', 'builtins'}
-          for name in list(sys.modules.keys()):
-              if name not in keep_modules:
-                  del sys.modules[name]
-          sys.stdout = sys.original_stdout
-          gc.collect()
-        `);
-      } catch (error) {
-        console.error("Error clearing terminal:", error);
-      }
-    }
-  }, [pyodide]);
+  }, []);
 
   const handleCommand = useCallback(async () => {
     if (!pyodide || !currentInput.trim() || isExecuting) return;
@@ -219,6 +203,10 @@ __builtins__.open = None
     }
   }, [currentInput, pyodide, isExecuting, validateCode, clearTerminal]);
 
+  const toggleSecurityInfo = () => {
+    setShowSecurityInfo((prev) => !prev);
+  };
+
   useEffect(() => {
     initPyodide();
   }, [initPyodide]);
@@ -252,11 +240,12 @@ __builtins__.open = None
   return (
     <div className={styles.container}>
       <Navbar
-        onShowSecurityInfo={() => setShowSecurityInfo(!showSecurityInfo)}
         showSecurityInfo={showSecurityInfo}
+        setShowSecurityInfo={setShowSecurityInfo}
         maxExecutionTime={MAX_EXECUTION_TIME}
         maxMemory={MAX_MEMORY}
-        onExecute={() => currentInput.trim() && handleCommand()}
+        onExecute={handleCommand}
+        onClear={clearTerminal}
       />
 
       <div className={styles.content}>

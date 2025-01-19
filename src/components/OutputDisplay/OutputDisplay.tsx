@@ -1,3 +1,5 @@
+import { Copy } from "lucide-react";
+import { useState } from "react";
 import styles from "./OutputDisplay.module.css";
 
 interface HistoryEntry {
@@ -11,6 +13,18 @@ interface OutputDisplayProps {
 }
 
 export function OutputDisplay({ history }: OutputDisplayProps) {
+  const [showCopied, setShowCopied] = useState(false);
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setShowCopied(true);
+      setTimeout(() => setShowCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
   return (
     <div className={styles.history}>
       {history.map((entry, index) => (
@@ -19,6 +33,13 @@ export function OutputDisplay({ history }: OutputDisplayProps) {
             <div className={styles.input}>
               <span className={styles.inputText}>{entry.input}</span>
             </div>
+            <button
+              onClick={() => handleCopy(entry.input)}
+              className={styles.copyButton}
+              title='Copy code'
+            >
+              <Copy size={14} />
+            </button>
           </div>
           {entry.output && (
             <div className={styles.line}>
@@ -29,10 +50,18 @@ export function OutputDisplay({ history }: OutputDisplayProps) {
               >
                 {entry.output}
               </div>
+              <button
+                onClick={() => handleCopy(entry.output || "")}
+                className={styles.copyButton}
+                title='Copy output'
+              >
+                <Copy size={14} />
+              </button>
             </div>
           )}
         </div>
       ))}
+      {showCopied && <div className={styles.toast}>Copied to clipboard</div>}
     </div>
   );
 }
