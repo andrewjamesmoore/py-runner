@@ -203,10 +203,6 @@ __builtins__.open = None
     }
   }, [currentInput, pyodide, isExecuting, validateCode, clearTerminal]);
 
-  const toggleSecurityInfo = () => {
-    setShowSecurityInfo((prev) => !prev);
-  };
-
   useEffect(() => {
     initPyodide();
   }, [initPyodide]);
