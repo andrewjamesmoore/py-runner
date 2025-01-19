@@ -28,6 +28,28 @@ export function Navbar({
 }: NavbarProps) {
   const [showShortcuts, setShowShortcuts] = useState(false);
 
+  const menuItems = [
+    {
+      label: "Run program",
+      shortcut: "⌘ + enter",
+      action: onExecute,
+    },
+    {
+      label: "Reset console",
+      shortcut: "clear",
+      action: onClear,
+    },
+    {
+      label: "Python Reference",
+      shortcut: "⌘ + k",
+      action: () => {
+        setShowReference(!showReference);
+        setShowShortcuts(false); // Close the menu after clicking
+      },
+      divider: true,
+    },
+  ];
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
@@ -84,24 +106,7 @@ export function Navbar({
             isOpen={showShortcuts}
             onClose={() => setShowShortcuts(false)}
             title='Commands'
-            items={[
-              {
-                label: "Run program",
-                shortcut: "⌘ + enter",
-                action: onExecute,
-              },
-              {
-                label: "Reset console",
-                shortcut: "clear",
-                action: onClear,
-              },
-              {
-                label: "Python Reference",
-                shortcut: "⌘ + k",
-                action: () => setShowReference(true),
-                divider: true,
-              },
-            ]}
+            items={menuItems}
           />
         </div>
         <div className={styles.menuContainer}>

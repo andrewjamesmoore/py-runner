@@ -27,17 +27,6 @@ export function CodeEditor({
     [setCurrentInput]
   );
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      // Command/Ctrl + Enter to execute
-      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-        e.preventDefault();
-        onExecute();
-      }
-    },
-    [onExecute]
-  );
-
   return (
     <div className={styles.container}>
       <div className={styles.editorWrapper}>
@@ -46,7 +35,6 @@ export function CodeEditor({
             ref={editorRef}
             value={currentInput}
             onChange={onChange}
-            onKeyDown={handleKeyDown}
             extensions={[python(), closeBrackets()]}
             theme={darkTheme}
             basicSetup={{

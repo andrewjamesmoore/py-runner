@@ -1,5 +1,5 @@
+import { DisplayLine } from "../DisplayLine/DisplayLine";
 import styles from "./OutputDisplay.module.css";
-import { DisplayLine } from "./DisplayLine";
 
 interface HistoryEntry {
   input: string;

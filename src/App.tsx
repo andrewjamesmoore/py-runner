@@ -8,6 +8,7 @@ import { CodeEditor } from "./components/CodeEditor/CodeEditor";
 import type { ReactCodeMirrorRef as CodeMirror } from "@uiw/react-codemirror";
 import styles from "./App.module.css";
 import { ReferencePanel } from "./components/ReferencePanel/ReferencePanel";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 
 interface HistoryEntry {
   input: string;
@@ -212,6 +213,20 @@ __builtins__.open = None
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
+
+  useKeyboardShortcuts([
+    {
+      key: "k",
+      ctrl: true,
+      action: () => setShowReference((prev) => !prev),
+    },
+    {
+      key: "Enter",
+      ctrl: true,
+      action: handleCommand,
+      disabled: isExecuting,
+    },
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
