@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { loadPyodide, PyodideInterface } from "pyodide";
 import { Navbar } from "./components/Navbar/Navbar";
 import { LoadingScreen } from "./components/LoadingScreen/LoadingScreen";
@@ -37,7 +37,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [currentInput, setCurrentInput] = useState("");
-  const [historyIndex, setHistoryIndex] = useState(-1);
   const [isExecuting, setIsExecuting] = useState(false);
   const [initError, setInitError] = useState<string | null>(null);
   const [showSecurityInfo, setShowSecurityInfo] = useState(false);
@@ -110,7 +109,6 @@ __builtins__.open = None
   const clearTerminal = useCallback(async () => {
     setHistory([]);
     setCurrentInput("");
-    setHistoryIndex(-1);
 
     if (pyodide) {
       try {
@@ -205,12 +203,12 @@ __builtins__.open = None
             (result !== undefined ? String(result) : undefined),
         },
       ]);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       setHistory((prev) => [
         ...prev,
         {
           input: currentInput,
-          output: error.message,
+          output: error instanceof Error ? error.message : String(error),
           error: true,
         },
       ]);
@@ -218,38 +216,8 @@ __builtins__.open = None
       clearTimeout(timeoutId);
       setIsExecuting(false);
       setCurrentInput("");
-      setHistoryIndex(-1);
     }
   }, [currentInput, pyodide, isExecuting, validateCode, clearTerminal]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        handleCommand();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        if (history.length > 0) {
-          const newIndex = historyIndex + 1;
-          if (newIndex < history.length) {
-            setHistoryIndex(newIndex);
-            setCurrentInput(history[history.length - 1 - newIndex].input);
-          }
-        }
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        if (historyIndex > 0) {
-          const newIndex = historyIndex - 1;
-          setHistoryIndex(newIndex);
-          setCurrentInput(history[history.length - 1 - newIndex].input);
-        } else if (historyIndex === 0) {
-          setHistoryIndex(-1);
-          setCurrentInput("");
-        }
-      }
-    },
-    [historyIndex, history, handleCommand]
-  );
 
   useEffect(() => {
     initPyodide();
@@ -288,15 +256,16 @@ __builtins__.open = None
         showSecurityInfo={showSecurityInfo}
         maxExecutionTime={MAX_EXECUTION_TIME}
         maxMemory={MAX_MEMORY}
+        onExecute={() => currentInput.trim() && handleCommand()}
       />
 
-      <div className='flex-1 overflow-auto p-4 font-mono text-[14px]'>
+      <div className={styles.content}>
         <OutputDisplay history={history} />
         <CodeEditor
           editorRef={editorRef}
           currentInput={currentInput}
           setCurrentInput={setCurrentInput}
-          handleKeyDown={handleKeyDown}
+          onExecute={handleCommand}
         />
         <div ref={bottomRef} />
       </div>

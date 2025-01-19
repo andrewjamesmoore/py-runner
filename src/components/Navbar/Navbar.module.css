@@ -1,10 +1,13 @@
 .navbar {
-  /* background-color: var(--bg-color); */
-  padding: var(--space-base);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: var(--space-small) var(--space-large);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border);
+  background-color: var(--bg-color);
 }
 
 .logoContainer {
@@ -40,4 +43,18 @@
 
 .navIcon {
   color: var(--color-accent-subdued);
+}
+
+.runButton {
+  background-color: var(--color-accent);
+  font: var(--text-base);
+  font-weight: 500;
+  color: var(--bg-color);
+  padding: var(--space-smallest) var(--space-small);
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.runButton:hover {
+  opacity: 0.6;
 }

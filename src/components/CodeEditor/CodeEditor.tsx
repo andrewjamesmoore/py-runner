@@ -2,8 +2,9 @@ import CodeMirror from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import { createTheme } from "@uiw/codemirror-themes";
 import { tags as t } from "@lezer/highlight";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useState } from "react";
 import { closeBrackets } from "@codemirror/autocomplete";
+import { PlayIcon } from "lucide-react";
 import styles from "./CodeEditor.module.css";
 import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
@@ -11,7 +12,7 @@ interface CodeEditorProps {
   editorRef: RefObject<ReactCodeMirrorRef>;
   currentInput: string;
   setCurrentInput: (value: string) => void;
-  handleKeyDown: (e: React.KeyboardEvent) => void;
+  onExecute: () => void;
 }
 
 const customTheme = createTheme({
@@ -29,10 +30,10 @@ const customTheme = createTheme({
     { tag: t.comment, color: "var(--color-accent-subdued)" },
     { tag: t.variableName, color: "var(--text-color)" },
     { tag: t.string, color: "var(--color-accent)" },
-    { tag: t.number, color: "var(--color-accent)" },
+    { tag: t.number, color: "#ffb662" },
     { tag: [t.keyword, t.operator], color: "#ff79c6" },
     { tag: t.definitionKeyword, color: "#ff79c6" },
-    { tag: t.function(t.variableName), color: "#50fa7b" },
+    { tag: t.function(t.variableName), color: "var(--color-accent)" },
   ],
 });
 
@@ -40,20 +41,34 @@ export function CodeEditor({
   editorRef,
   currentInput,
   setCurrentInput,
-  handleKeyDown,
+  onExecute,
 }: CodeEditorProps) {
+  const [showExecuteButton, setShowExecuteButton] = useState(false);
+
   const onChange = useCallback(
     (value: string) => {
-      // Remove any newlines that might have been added
-      const singleLineValue = value.replace(/\n/g, "");
-      setCurrentInput(singleLineValue);
+      setCurrentInput(value);
     },
     [setCurrentInput]
   );
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      // Command/Ctrl + Enter to execute
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault();
+        onExecute();
+      }
+    },
+    [onExecute]
+  );
+
   return (
-    <div className={styles.container}>
-      <span className={styles.prompt}>&gt;&gt;&gt;</span>
+    <div
+      className={styles.container}
+      onMouseEnter={() => setShowExecuteButton(true)}
+      onMouseLeave={() => setShowExecuteButton(false)}
+    >
       <div className={styles.editorWrapper}>
         <CodeMirror
           ref={editorRef}
@@ -63,13 +78,23 @@ export function CodeEditor({
           extensions={[python(), closeBrackets()]}
           theme={customTheme}
           basicSetup={{
-            lineNumbers: false,
-            foldGutter: false,
-            dropCursor: false,
-            allowMultipleSelections: false,
-            indentOnInput: false,
+            lineNumbers: true,
+            foldGutter: true,
+            dropCursor: true,
+            allowMultipleSelections: true,
+            indentOnInput: true,
           }}
         />
+        {showExecuteButton && currentInput.trim() && (
+          <button
+            onClick={onExecute}
+            className={styles.executeButton}
+            title='Run (⌘/Ctrl + Enter)'
+          >
+            <PlayIcon size={12} />
+            cmd + enter
+          </button>
+        )}
       </div>
     </div>
   );

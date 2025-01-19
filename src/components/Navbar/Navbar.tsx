@@ -13,6 +13,7 @@ interface NavbarProps {
   showSecurityInfo: boolean;
   maxExecutionTime: number;
   maxMemory: number;
+  onExecute: () => void;
 }
 
 export function Navbar({
@@ -20,6 +21,7 @@ export function Navbar({
   showSecurityInfo,
   maxExecutionTime,
   maxMemory,
+  onExecute,
 }: NavbarProps) {
   const [showShortcuts, setShowShortcuts] = useState(false);
 
@@ -35,6 +37,7 @@ export function Navbar({
             onClick={() => setShowShortcuts(true)}
             className={styles.navButton}
             aria-label='Keyboard Shortcuts'
+            title='Commands'
           >
             <Keyboard size={20} className={styles.navIcon} />
           </button>
@@ -58,6 +61,7 @@ export function Navbar({
             onClick={onShowSecurityInfo}
             className={styles.navButton}
             aria-label='Security Information'
+            title='Security'
           >
             <Info size={20} className={styles.navIcon} />
           </button>
@@ -77,6 +81,15 @@ export function Navbar({
               <li>Memory usage is limited to {maxMemory / (1024 * 1024)}MB</li>
             </ul>
           </Popup>
+        </div>
+        <div className='relative'>
+          <button
+            onClick={onExecute}
+            className={styles.runButton}
+            title='Run Program'
+          >
+            Run
+          </button>
         </div>
       </div>
     </nav>

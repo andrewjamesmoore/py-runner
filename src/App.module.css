@@ -5,3 +5,10 @@
   display: flex;
   flex-direction: column;
 }
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: var(--space-small) var(--space-base) var(--space-largest);
+  font: var(--text-base);
+}
