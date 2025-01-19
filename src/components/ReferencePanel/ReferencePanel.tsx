@@ -1,13 +1,19 @@
 import { useRef, useEffect, useState } from "react";
 import { GripVertical } from "lucide-react";
 import styles from "./ReferencePanel.module.css";
+import { BuiltinFunctions } from "./BuiltinFunctions";
 
 interface ReferencePanelProps {
   isOpen: boolean;
   onClose: () => void;
+  onExecute: (code: string) => void;
 }
 
-export function ReferencePanel({ isOpen, onClose }: ReferencePanelProps) {
+export function ReferencePanel({
+  isOpen,
+  onClose,
+  onExecute,
+}: ReferencePanelProps) {
   const [width, setWidth] = useState(400);
   const [isDragging, setIsDragging] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -76,8 +82,11 @@ export function ReferencePanel({ isOpen, onClose }: ReferencePanelProps) {
         </button>
       </div>
       <div className={styles.content}>
-        {/* Your reference content goes here */}
-        {/* This div will be scrollable */}
+        <BuiltinFunctions
+          onExampleClick={(example) => {
+            onExecute(example);
+          }}
+        />
       </div>
     </div>
   );

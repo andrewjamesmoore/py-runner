@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: var(--space-small) var(--space-large);
+  padding: var(--space-small) var(--space-base);
   display: flex;
   justify-content: space-between;
   align-items: center;

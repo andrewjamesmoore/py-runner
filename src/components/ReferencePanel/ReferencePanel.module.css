@@ -40,7 +40,6 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-base);
 }
 
 .header {

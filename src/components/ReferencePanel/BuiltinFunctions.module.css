@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-base);
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  font: var(--heading-alternate);
+  color: var(--text-color);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: var(--space-smallest) var(--space-base);
+  border: 1px solid var(--border-alternate);
+  border-radius: var(--space-smallest);
+  transition: all 0.2s;
+  width: 240px;
+}
+
+.searchBar:focus-within {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.searchIcon {
+  color: var(--text-color-subdued);
+  width: 20px;
+  height: 20px;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font: var(--text-alternate);
+  padding: 0;
+}
+
+.searchInput::placeholder {
+  color: var(--text-color-subdued);
+  font: var(--text-alternate);
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.functionList {
+  display: flex;
+  flex-direction: column;
+}
+
+.functionCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  padding: var(--space-base);
+  border-bottom: 1px solid var(--border);
+}
+
+.functionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.functionMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.functionName {
+  font: var(--text-alternate);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.description {
+  font: var(--text-alternate);
+  font-weight: 300;
+  color: var(--text-color);
+}
+
+.example {
+  color: var(--text-color-alt);
+  font: var(--text-base);
+  font-size: 13px;
+  padding: var(--space-small);
+  border: 1px solid var(--border-alternate);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-base);
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: var(--space-smallest) var(--space-base);
+  color: var(--text-color-alt);
+  border-radius: var(--space-smallest);
+  font-size: 12px;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.example:hover .copyButton {
+  opacity: 1;
+}
+
+.copyButton:hover {
+  background-color: var(--bg-color-alt);
+  color: var(--text-color);
+}
+
+.comingSoon {
+  padding: var(--space-base);
+  text-align: center;
+  color: var(--text-color-subdued);
+}

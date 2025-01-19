@@ -16,7 +16,7 @@
 .editorContainer {
   position: relative;
   padding: 0 var(--space-base);
-  margin-left: -4px;
+  margin-left: -10px;
   flex: 1;
   display: flex;
   flex-direction: column;
