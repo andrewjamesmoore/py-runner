@@ -1,18 +1,21 @@
 .container {
   min-height: 100vh;
+  height: 100vh;
   background-color: var(--bg-color);
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 .content {
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
   padding: var(--space-small) var(--space-base) var(--space-largest);
   font: var(--text-base);
   transition: margin-right 0.1s ease;
+  height: calc(100vh - var(--navbar-height));
 }
 
 .content.shifted {

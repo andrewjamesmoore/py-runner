@@ -8,7 +8,7 @@
   transition: right 0.3s ease;
   z-index: 45;
   display: flex;
-  /* border-left: 1px solid var(--border); */
+  flex-direction: column;
 }
 
 .panel.open {
@@ -37,7 +37,14 @@
   background-color: var(--color-accent);
 }
 
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-base);
+}
+
 .header {
+  flex-shrink: 0;
   padding: var(--space-base);
   border-bottom: 1px solid var(--border);
   display: flex;

@@ -75,6 +75,10 @@ export function ReferencePanel({ isOpen, onClose }: ReferencePanelProps) {
           Close
         </button>
       </div>
+      <div className={styles.content}>
+        {/* Your reference content goes here */}
+        {/* This div will be scrollable */}
+      </div>
     </div>
   );
 }
