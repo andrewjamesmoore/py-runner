@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import styles from "./Menu.module.css";
 
 interface MenuItem {
@@ -17,22 +18,7 @@ interface MenuProps {
 
 export function Menu({ isOpen, onClose, items, title }: MenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
+  useClickOutside(menuRef, onClose, isOpen);
 
   if (!isOpen) return null;
 

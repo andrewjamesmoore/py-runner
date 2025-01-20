@@ -21,6 +21,8 @@
   padding: var(--space-small) var(--space-base);
   transition: all 0.2s;
   cursor: default;
+  width: 100%;
+  text-align: left;
 }
 
 .menuItem:hover {

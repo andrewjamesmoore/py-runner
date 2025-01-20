@@ -1,5 +1,6 @@
 import { Copy } from "lucide-react";
 import { useState } from "react";
+import { Toast } from "../Toast/Toast";
 import styles from "./DisplayLine.module.css";
 
 interface DisplayLineProps {
@@ -40,7 +41,7 @@ export function DisplayLine({ text, type, error }: DisplayLineProps) {
       >
         <Copy size={14} />
       </button>
-      {showCopied && <div className={styles.toast}>Copied to clipboard</div>}
+      {showCopied && <Toast message='Copied to clipboard' />}
     </div>
   );
 }

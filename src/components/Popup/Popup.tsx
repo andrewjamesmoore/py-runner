@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import styles from "./Popup.module.css";
 
 interface PopupProps {
@@ -10,26 +11,7 @@ interface PopupProps {
 
 export function Popup({ isOpen, onClose, title, children }: PopupProps) {
   const popupRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
+  useClickOutside(popupRef, onClose, isOpen);
   if (!isOpen) return null;
 
   return (

@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { GripVertical } from "lucide-react";
 import styles from "./ReferencePanel.module.css";
-import { BuiltinFunctions } from "./BuiltinFunctions";
+import { BuiltinFunctions } from "../BuiltinFunctions/BuiltinFunctions";
 
 interface ReferencePanelProps {
   isOpen: boolean;
@@ -16,15 +16,40 @@ export function ReferencePanel({
 }: ReferencePanelProps) {
   const [width, setWidth] = useState(600);
   const [isDragging, setIsDragging] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  // Handles side panel animation rendering
+  useEffect(() => {
+    if (isOpen) {
+      // First make it visible
+      setIsVisible(true);
+      // Then trigger animation in next frame
+      const animationFrame = requestAnimationFrame(() => {
+        const timer = setTimeout(() => {
+          setIsAnimating(true);
+        }, 50);
+        return () => clearTimeout(timer);
+      });
+      return () => cancelAnimationFrame(animationFrame);
+    } else {
+      // First remove animation
+      setIsAnimating(false);
+      // Then hide after animation completes
+      const timer = setTimeout(() => setIsVisible(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
       const newWidth = window.innerWidth - e.clientX;
+      // Will take up 90% of the screen max
       const maxWidth = window.innerWidth * 0.9;
+      // Auto closes at 50px
       const minWidth = 50;
-
       if (newWidth < 50) {
         onClose();
         return;
@@ -61,33 +86,39 @@ export function ReferencePanel({
     }
   }, [isOpen, width]);
 
-  if (!isOpen) return null;
+  if (!isVisible) return null;
 
   return (
-    <div
-      ref={panelRef}
-      className={`${styles.panel} ${isOpen ? styles.open : ""}`}
-      style={{ width: `${width}px` }}
-    >
+    <>
       <div
-        className={styles.resizeHandle}
-        onMouseDown={() => setIsDragging(true)}
+        className={`${styles.backdrop} ${isAnimating ? styles.open : ""}`}
+        onClick={onClose}
+      />
+      <div
+        ref={panelRef}
+        className={`${styles.panel} ${isAnimating ? styles.open : ""}`}
+        style={{ width: `${width}px` }}
       >
-        <GripVertical size={16} />
+        <div
+          className={styles.resizeHandle}
+          onMouseDown={() => setIsDragging(true)}
+        >
+          <GripVertical size={16} />
+        </div>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Python Reference</h2>
+          <button onClick={onClose} className={styles.closeButton}>
+            Close
+          </button>
+        </div>
+        <div className={styles.content}>
+          <BuiltinFunctions
+            onExampleClick={(example) => {
+              onExecute(example);
+            }}
+          />
+        </div>
       </div>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Python Reference</h2>
-        <button onClick={onClose} className={styles.closeButton}>
-          Close
-        </button>
-      </div>
-      <div className={styles.content}>
-        <BuiltinFunctions
-          onExampleClick={(example) => {
-            onExecute(example);
-          }}
-        />
-      </div>
-    </div>
+    </>
   );
 }

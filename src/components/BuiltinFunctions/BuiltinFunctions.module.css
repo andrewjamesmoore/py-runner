@@ -148,7 +148,7 @@
 }
 
 .copyButton:hover {
-  background-color: var(--color-surface-alternate);
+  background-color: var(--color-surface-hover);
   color: var(--color-text);
 }
 

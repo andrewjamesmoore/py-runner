@@ -42,33 +42,31 @@ export function CodeEditor({
 
   return (
     <div className={styles.container} onClick={handleContainerClick}>
-      <div className={styles.editorWrapper}>
-        <div className={styles.editorContainer}>
-          <CodeMirror
-            ref={editorRef}
-            value={currentInput}
-            onChange={onChange}
-            extensions={[python(), closeBrackets()]}
-            theme={darkTheme}
-            basicSetup={{
-              lineNumbers: true,
-              foldGutter: false,
-              dropCursor: true,
-              indentOnInput: true,
-              allowMultipleSelections: true,
-            }}
-          />
-          {currentInput.trim() && (
-            <button
-              onClick={onExecute}
-              className={styles.executeButton}
-              title='Run (⌘/Ctrl + Enter)'
-            >
-              <PlayIcon size={12} />
-              cmd + enter
-            </button>
-          )}
-        </div>
+      <div className={styles.editorContainer}>
+        <CodeMirror
+          ref={editorRef}
+          value={currentInput}
+          onChange={onChange}
+          extensions={[python(), closeBrackets()]}
+          theme={darkTheme}
+          basicSetup={{
+            lineNumbers: true,
+            foldGutter: false,
+            dropCursor: true,
+            indentOnInput: true,
+            allowMultipleSelections: true,
+          }}
+        />
+        {currentInput.trim() && (
+          <button
+            onClick={onExecute}
+            className={styles.executeButton}
+            title='Run (⌘/Ctrl + Enter)'
+          >
+            <PlayIcon size={12} />
+            cmd + enter
+          </button>
+        )}
       </div>
     </div>
   );

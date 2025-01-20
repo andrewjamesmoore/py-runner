@@ -44,9 +44,8 @@ export function Navbar({
       shortcut: "⌘ + k",
       action: () => {
         setShowReference(!showReference);
-        setShowShortcuts(false); // Close the menu after clicking
+        setShowShortcuts(false);
       },
-      divider: true,
     },
   ];
 

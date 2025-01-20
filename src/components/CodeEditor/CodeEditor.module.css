@@ -7,16 +7,10 @@
   flex-direction: column;
 }
 
-.editorWrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
 .editorContainer {
   position: relative;
   padding: 0 var(--space-base);
-  margin-left: -10px;
+  margin-left: -8px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -50,4 +44,8 @@
   color: var(--color-text-tertiary);
   pointer-events: none;
   position: absolute;
+}
+
+.container :global(.cm-editor.cm-focused) {
+  outline: none;
 }

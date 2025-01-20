@@ -3,12 +3,12 @@ import { loadPyodide, PyodideInterface } from "pyodide";
 import { Navbar } from "./components/Navbar/Navbar";
 import { LoadingScreen } from "./components/LoadingScreen/LoadingScreen";
 import { ErrorScreen } from "./components/ErrorScreen/ErrorScreen";
-import { OutputDisplay } from "./components/OutputDisplay/OutputDisplay";
 import { CodeEditor } from "./components/CodeEditor/CodeEditor";
 import type { ReactCodeMirrorRef as CodeMirror } from "@uiw/react-codemirror";
 import styles from "./App.module.css";
 import { ReferencePanel } from "./components/ReferencePanel/ReferencePanel";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { DisplayLine } from "./components/DisplayLine/DisplayLine";
 
 interface HistoryEntry {
   input: string;
@@ -31,7 +31,9 @@ const BLOCKED_MODULES = new Set([
   "compile",
 ]);
 
+//Stop infinite looping and long-running process
 const MAX_EXECUTION_TIME = 5000;
+//Prevent memory exhaustion
 const MAX_MEMORY = 50 * 1024 * 1024;
 
 function App() {
@@ -45,8 +47,8 @@ function App() {
   const [showReference, setShowReference] = useState(false);
   const editorRef = useRef<CodeMirror | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const securityInfoRef = useRef<HTMLDivElement>(null);
 
+  // Security measures for running Python in browser
   const setupPythonEnvironment = useCallback(
     async (pyodideInstance: PyodideInterface) => {
       try {
@@ -77,6 +79,7 @@ __builtins__.open = None
     []
   );
 
+  // Pyodide environment setup
   const initPyodide = useCallback(async () => {
     setLoading(true);
     setInitError(null);
@@ -96,6 +99,7 @@ __builtins__.open = None
     }
   }, [setupPythonEnvironment]);
 
+  // Blocked module validation
   const validateCode = useCallback((code: string): boolean => {
     return !code
       .toLowerCase()
@@ -109,6 +113,7 @@ __builtins__.open = None
       );
   }, []);
 
+  // Clear terminal by typing clear
   const clearTerminal = useCallback(() => {
     setHistory([]);
     setCurrentInput("");
@@ -141,6 +146,7 @@ __builtins__.open = None
       setIsExecuting(true);
       let timeoutId: number = 0;
 
+      // QoL feature for playground, don't need to print uses Python's repr
       try {
         const executionPromise = async () => {
           await pyodide.runPythonAsync(
@@ -216,6 +222,7 @@ __builtins__.open = None
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
 
+  // Uses keyboard shortcuts hook
   useKeyboardShortcuts([
     {
       key: "k",
@@ -229,20 +236,6 @@ __builtins__.open = None
       disabled: isExecuting,
     },
   ]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        securityInfoRef.current &&
-        !securityInfoRef.current.contains(event.target as Node)
-      ) {
-        setShowSecurityInfo(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   if (loading) {
     return <LoadingScreen />;
@@ -267,7 +260,20 @@ __builtins__.open = None
       <div
         className={`${styles.content} ${showReference ? styles.shifted : ""}`}
       >
-        <OutputDisplay history={history} />
+        <div>
+          {history.map((entry, index) => (
+            <div key={index}>
+              <DisplayLine text={entry.input} type='input' />
+              {entry.output && (
+                <DisplayLine
+                  text={entry.output}
+                  type='output'
+                  error={entry.error}
+                />
+              )}
+            </div>
+          ))}
+        </div>
         <CodeEditor
           editorRef={editorRef}
           currentInput={currentInput}
