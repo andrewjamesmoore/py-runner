@@ -10,17 +10,6 @@ export default defineConfig({
       generateScopedName: "[name]__[local]___[hash:base64:5]",
     },
   },
-  resolve: {
-    alias: {
-      "node-fetch": "isomorphic-fetch",
-    },
-  },
-  server: {
-    headers: {
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cross-Origin-Embedder-Policy": "require-corp",
-    },
-  },
   build: {
     rollupOptions: {
       output: {

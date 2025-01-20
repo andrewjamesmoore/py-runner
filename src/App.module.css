@@ -12,12 +12,18 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 0 var(--space-base) var(--space-largest);
+  padding: var(--navbar-height) var(--space-base) var(--space-largest);
   font: var(--text-base);
   transition: margin-right 0.1s ease;
-  height: calc(100vh - var(--navbar-height));
+  -webkit-overflow-scrolling: touch;
 }
 
 .content.shifted {
   margin-right: var(--panel-width, 400px);
+}
+
+@media (max-width: 768px) {
+  .content.shifted {
+    margin-right: 0;
+  }
 }
