@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "test-build": "tsc && vite build && vite preview"
   },
   "dependencies": {
     "@codemirror/lang-python": "^6.1.3",

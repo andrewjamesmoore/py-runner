@@ -49,6 +49,11 @@ export function Navbar({
     },
   ];
 
+  const handleExecute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onExecute();
+  };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
@@ -120,7 +125,7 @@ export function Navbar({
         </div>
         <div className={styles.menuContainer}>
           <button
-            onClick={onExecute}
+            onClick={handleExecute}
             className={styles.runButton}
             title='Run Program'
           >

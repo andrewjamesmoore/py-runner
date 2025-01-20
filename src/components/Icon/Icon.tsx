@@ -6,6 +6,7 @@ import bookOpen from "../../assets/icons/book-open.svg?react";
 import refreshCw from "../../assets/icons/refresh-cw.svg?react";
 import alertTriangle from "../../assets/icons/alert-triangle.svg?react";
 import copy from "../../assets/icons/copy.svg?react";
+import grip from "../../assets/icons/grip.svg?react";
 
 const icons = {
   terminal,
@@ -15,6 +16,7 @@ const icons = {
   refreshCw,
   alertTriangle,
   copy,
+  grip,
 } as const;
 
 export type IconName = keyof typeof icons;

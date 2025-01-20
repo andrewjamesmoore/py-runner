@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { GripVertical } from "lucide-react";
+import { Icon } from "../Icon/Icon";
 import styles from "./ReferencePanel.module.css";
 import { BuiltinFunctions } from "../BuiltinFunctions/BuiltinFunctions";
 
@@ -103,7 +103,7 @@ export function ReferencePanel({
           className={styles.resizeHandle}
           onMouseDown={() => setIsDragging(true)}
         >
-          <GripVertical size={16} />
+          <Icon name='grip' size={16} />
         </div>
         <div className={styles.header}>
           <h2 className={styles.title}>Python Reference</h2>
