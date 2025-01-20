@@ -8,10 +8,12 @@ interface DisplayLineProps {
   error?: boolean;
 }
 
+// Used to show either the output from a command or the command itself in a history view
 export function DisplayLine({ text, type, error }: DisplayLineProps) {
   const [showCopied, setShowCopied] = useState(false);
   const isOutput = type === "output";
 
+  //   users can copy a previous command and reuse it by pasting it into the console with this shortcut icon
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text);

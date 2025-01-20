@@ -1,8 +1,8 @@
 .container {
   min-height: 100vh;
   height: 100vh;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--color-surface);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
   position: relative;

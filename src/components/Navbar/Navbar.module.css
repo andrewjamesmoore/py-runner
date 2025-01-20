@@ -6,8 +6,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
 
 .logoContainer {
@@ -37,7 +37,7 @@
 
 .title {
   font: var(--text-base);
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .rightSection {
@@ -69,7 +69,7 @@
   background-color: var(--color-accent);
   font: var(--text-base);
   font-weight: 500;
-  color: var(--bg-color);
+  color: var(--color-surface);
   padding: var(--space-smallest) var(--space-small);
   border-radius: 4px;
   transition: all 0.2s ease;

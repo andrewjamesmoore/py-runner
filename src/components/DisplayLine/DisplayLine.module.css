@@ -14,7 +14,7 @@
 }
 
 .input {
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   padding: var(--space-smallest) var(--space-base);
 }
 
@@ -22,8 +22,8 @@
   padding: var(--space-small);
   padding-left: 32px;
   margin: 0 calc(var(--space-base) * -1);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .text {
@@ -57,7 +57,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: var(--space-smallest) var(--space-base);
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 300;
@@ -69,22 +69,22 @@
 }
 
 .copyButton:hover {
-  background-color: var(--bg-color-alt);
-  color: var(--text-color-alt);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text-secondary);
 }
 
 .toast {
   position: absolute;
   right: 8px;
   top: -24px;
-  background-color: var(--bg-color-alt);
-  color: var(--text-color);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text);
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
   z-index: 1000;
   animation: slideIn 0.4s ease;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
 }
 
 @keyframes slideIn {

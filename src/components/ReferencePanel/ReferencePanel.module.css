@@ -4,8 +4,8 @@
   right: -800px;
   height: 100vh;
   width: 800px;
-  background-color: var(--bg-color);
-  border-left: 1px solid var(--border);
+  background-color: var(--color-surface);
+  border-left: 1px solid var(--color-border);
   transition: right 0.3s ease;
   z-index: 45;
   display: flex;
@@ -46,7 +46,7 @@
 .header {
   flex-shrink: 0;
   padding: var(--space-base);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,19 +54,19 @@
 
 .title {
   font: var(--heading-alternate);
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .closeButton {
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
   padding: var(--space-smallest);
   border-radius: 4px;
   transition: all 0.2s;
 }
 
 .closeButton:hover {
-  background-color: var(--bg-color-alt);
-  color: var(--text-color);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text);
 }
 
 /* Add media query for mobile devices */
@@ -88,7 +88,7 @@
   /* Make the header more prominent on mobile */
   .header {
     padding: var(--space-base);
-    background-color: var(--bg-surface-alt);
+    background-color: var(--color-surface-alternate);
   }
 
   /* Adjust content padding for mobile */

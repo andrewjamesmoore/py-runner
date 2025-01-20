@@ -30,7 +30,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: var(--space-smallest) var(--space-base);
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   border-radius: var(--space-smallest);
   font-size: 12px;
   font-weight: 300;
@@ -38,8 +38,8 @@
 }
 
 .executeButton:hover {
-  background-color: var(--bg-color-alt);
-  color: var(--text-color);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text);
 }
 
 .container :global(.cm-cursor) {
@@ -47,7 +47,7 @@
 }
 
 .container :global(.cm-placeholder) {
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
   pointer-events: none;
   position: absolute;
 }

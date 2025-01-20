@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--color-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,24 +23,24 @@
 
 .message {
   font: var(--text-alternate);
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   margin-bottom: 1rem;
 }
 
 .retryButton {
-  color: var(--text-color);
+  color: var(--color-text);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   font: var(--text-alternate);
-  border: 1px solid var(--border-alternate);
+  border: 1px solid var(--color-border-alternate);
   border-radius: var(--space-smallest);
   transition: background-color 0.2s;
 }
 
 .retryButton:hover {
-  background-color: var(--border-alternate);
+  background-color: var(--color-border-alternate);
 }
 
 .alertIcon {

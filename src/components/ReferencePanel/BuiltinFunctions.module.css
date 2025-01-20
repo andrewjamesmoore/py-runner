@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-base);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
   gap: var(--space-base);
 }
 
@@ -25,7 +25,7 @@
 
 .title {
   font: var(--heading-alternate);
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .searchBar {
@@ -33,7 +33,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: var(--space-smallest) var(--space-base);
-  border: 1px solid var(--border-alternate);
+  border: 1px solid var(--color-border-alternate);
   border-radius: var(--space-smallest);
   transition: all 0.2s;
   width: 240px;
@@ -46,7 +46,7 @@
 }
 
 .searchIcon {
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
   width: 20px;
   height: 20px;
 }
@@ -55,13 +55,13 @@
   flex: 1;
   background: none;
   border: none;
-  color: var(--text-color);
+  color: var(--color-text);
   font: var(--text-alternate);
   padding: 0;
 }
 
 .searchInput::placeholder {
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
   font: var(--text-alternate);
 }
 
@@ -79,7 +79,7 @@
   flex-direction: column;
   gap: var(--space-small);
   padding: var(--space-base);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .functionHeader {
@@ -103,15 +103,15 @@
 .description {
   font: var(--text-alternate);
   font-weight: 300;
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .example {
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   font: var(--text-base);
   font-size: 13px;
   padding: var(--space-small);
-  border: 1px solid var(--border-alternate);
+  border: 1px solid var(--color-border-alternate);
   border-radius: 4px;
   display: flex;
   flex-direction: row;
@@ -133,7 +133,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: var(--space-smallest) var(--space-base);
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   border-radius: var(--space-smallest);
   font-size: 12px;
   font-weight: 300;
@@ -148,8 +148,8 @@
 }
 
 .copyButton:hover {
-  background-color: var(--bg-color-alt);
-  color: var(--text-color);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text);
 }
 
 @media (max-width: 380px) {
@@ -166,5 +166,5 @@
 .comingSoon {
   padding: var(--space-base);
   text-align: center;
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
 }

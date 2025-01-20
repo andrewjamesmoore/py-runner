@@ -1,23 +1,23 @@
 .tabs {
   display: flex;
   padding: 0 var(--space-base);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tab {
   padding: var(--space-small) var(--space-base);
   font: var(--heading-alternate);
-  color: var(--text-color-subdued);
+  color: var(--color-text-tertiary);
   position: relative;
   transition: color 0.2s;
 }
 
 .tab:hover {
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .tab.active {
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .tab.active::after {

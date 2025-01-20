@@ -27,6 +27,7 @@ export function CodeEditor({
     [setCurrentInput]
   );
 
+  // Focus the editor when the component loads
   useEffect(() => {
     const timer = setTimeout(() => {
       editorRef.current?.view?.focus();
@@ -34,6 +35,7 @@ export function CodeEditor({
     return () => clearTimeout(timer);
   }, [editorRef]);
 
+  // Rather than have to click the specific line this will allow users to click anywhere in the console panel
   const handleContainerClick = () => {
     editorRef.current?.view?.focus();
   };

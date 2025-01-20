@@ -4,11 +4,11 @@ import { tags as t } from "@lezer/highlight";
 export const darkTheme = createTheme({
   theme: "dark",
   settings: {
-    foreground: "var(--text-color-alt)",
+    foreground: "var(--color-text-secondary)",
     caret: "var(--color-accent)",
     lineHighlight: "transparent",
     gutterBackground: "var(--color-gutter-background)",
-    gutterForeground: "var(--text-color-alt)",
+    gutterForeground: "var(--color-text-secondary)",
     selection: "var(--color-selection)",
     selectionMatch: "var(--color-selection-match)",
   },

@@ -20,7 +20,7 @@
 }
 
 .input {
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   padding: var(--space-smallest) 0;
 }
 
@@ -63,7 +63,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: var(--space-smallest) var(--space-base);
-  color: var(--text-color-alt);
+  color: var(--color-text-secondary);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 300;
@@ -75,13 +75,13 @@
 }
 
 .copyButton:hover {
-  background-color: var(--bg-color-alt);
-  color: var(--text-color-alt);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text-secondary);
 }
 
 .copiedPopup {
   position: absolute;
-  background-color: var(--bg-color-alt);
+  background-color: var(--color-surface-alternate);
   color: var(--color-accent);
   padding: 4px 8px;
   border-radius: 4px;
@@ -107,14 +107,14 @@
   position: fixed;
   bottom: 16px;
   right: 16px;
-  background-color: var(--bg-color-alt);
-  color: var(--text-color);
+  background-color: var(--color-surface-alternate);
+  color: var(--color-text);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 12px;
   z-index: 1000;
   animation: slideIn 0.4s ease;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
 }
 
 @keyframes slideIn {
