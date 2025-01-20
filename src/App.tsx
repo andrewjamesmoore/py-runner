@@ -9,6 +9,7 @@ import styles from "./App.module.css";
 import { ReferencePanel } from "./components/ReferencePanel/ReferencePanel";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { DisplayLine } from "./components/DisplayLine/DisplayLine";
+import { Footer } from "./components/Footer/Footer";
 
 interface HistoryEntry {
   input: string;
@@ -266,7 +267,7 @@ __builtins__.open = None
         onExecute={handleCommand}
         onClear={clearTerminal}
       />
-      <div
+      <main
         className={`${styles.content} ${showReference ? styles.shifted : ""}`}
       >
         <div>
@@ -290,7 +291,8 @@ __builtins__.open = None
           onExecute={handleCommand}
         />
         <div ref={bottomRef} />
-      </div>
+      </main>
+      <Footer />
       <ReferencePanel
         isOpen={showReference}
         onClose={() => setShowReference(false)}

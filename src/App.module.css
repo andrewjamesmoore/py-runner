@@ -12,7 +12,7 @@
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: var(--navbar-height) var(--space-base) var(--space-largest);
+  padding: var(--navbar-height) var(--space-base) var(--footer-height);
   font: var(--text-base);
   transition: margin-right 0.1s ease;
   -webkit-overflow-scrolling: touch;

@@ -105,12 +105,6 @@ export function ReferencePanel({
         >
           <Icon name='grip' size={16} />
         </div>
-        <div className={styles.header}>
-          <h2 className={styles.title}>Python Reference</h2>
-          <button onClick={onClose} className={styles.closeButton}>
-            Close
-          </button>
-        </div>
         <div className={styles.content}>
           <BuiltinFunctions
             onExampleClick={(example) => {

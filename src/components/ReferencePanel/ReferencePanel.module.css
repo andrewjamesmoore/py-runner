@@ -1,8 +1,8 @@
 .panel {
   position: fixed;
-  top: 0;
+  top: var(--navbar-height);
   right: 0;
-  height: 100vh;
+  height: calc(100vh - var(--navbar-height) - var(--footer-height));
   width: 800px;
   background-color: var(--color-surface-alternate);
   border-left: 1px solid var(--color-border);
@@ -42,6 +42,7 @@
 .content {
   flex: 1;
   overflow-y: auto;
+  padding-bottom: var(--space-largest);
 }
 
 .header {
@@ -78,17 +79,12 @@
   }
 
   .resizeHandle {
-    display: none; /* Hide resize handle on mobile */
+    display: none;
   }
 
   /* Make the header more prominent on mobile */
   .header {
     padding: var(--space-base);
     background-color: var(--color-surface-alternate);
-  }
-
-  /* Adjust content padding for mobile */
-  .content {
-    padding-bottom: var(--space-largest);
   }
 }
