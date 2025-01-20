@@ -1,4 +1,4 @@
-# py-runner
+# PyRunner
 
 A browser-based Python playground that lets you write and execute Python code in real-time. Built with security and performance in mind, PyRunner provides a sandboxed environment for learning and experimenting with Python.
 
@@ -9,10 +9,9 @@ A browser-based Python playground that lets you write and execute Python code in
 - Built-in Python reference documentation
 - Code editor with syntax highlighting
 - Command history and code examples
-- Responsive design for mobile and desktop
 - Keyboard shortcuts for improved workflow
 
-## Tech Stack
+## Stack
 
 - **Frontend Framework**: React with TypeScript
 - **Python Runtime**: Pyodide (WebAssembly-based Python)
@@ -42,7 +41,9 @@ A browser-based Python playground that lets you write and execute Python code in
 
 1. Clone the repository:
 
-`git clone https://github.com/andrewjamesmoore/py-runner.git`
+```
+git clone https://github.com/andrewjamesmoore/py-runner.git
+```
 
 2. Install dependencies:
 
@@ -53,7 +54,9 @@ npm install
 
 3. Start the development server:
 
-`npm run dev`
+```
+npm run dev
+```
 
 ## Architecture
 
@@ -78,7 +81,7 @@ PyRunner was developed as a portfolio project to demonstrate:
 
 ## Live Demo
 
-Try PyRunner live at: [https://py-runner.net](https://py-runner.net)
+Try PyRunner live at: [https://pyrunner.net](https://pyrunner.net)
 
 ## License
 
@@ -87,4 +90,3 @@ MIT License - feel free to use this code for your own projects!
 ## Author
 
 Andrew James Moore
-[GitHub](https://github.com/andrewjamesmoore)
