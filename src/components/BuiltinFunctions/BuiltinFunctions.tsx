@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Play } from "lucide-react";
 import styles from "./BuiltinFunctions.module.css";
 import { BUILTIN_FUNCTIONS } from "../../data/builtinFunctions";
+import { Icon } from "../Icon/Icon";
 
 interface BuiltinFunctionsProps {
   onExampleClick: (example: string) => void;
@@ -44,7 +44,7 @@ export function BuiltinFunctions({ onExampleClick }: BuiltinFunctionsProps) {
                 className={styles.copyButton}
                 title='Paste in console'
               >
-                <Play size={12} />
+                <Icon name='play' size={12} />
                 Run it
               </button>
             </div>

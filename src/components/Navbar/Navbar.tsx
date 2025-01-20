@@ -1,7 +1,7 @@
-import { Terminal, PlayIcon, ShieldAlert, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { Menu } from "../Menu/Menu";
 import { Popup } from "../Popup/Popup";
+import { Icon } from "../Icon/Icon";
 import styles from "./Navbar.module.css";
 import popupStyles from "../Popup/Popup.module.css";
 
@@ -52,7 +52,7 @@ export function Navbar({
   return (
     <nav className={styles.navbar}>
       <div className={styles.logoContainer}>
-        <PlayIcon size={14} className={styles.logo} />
+        <Icon name='play' size={14} className={styles.logo} />
         <div className={styles.title}>PyRunner</div>
       </div>
       <div className={styles.rightSection}>
@@ -63,7 +63,7 @@ export function Navbar({
             aria-label='Security Information'
             title='Security'
           >
-            <ShieldAlert size={20} className={styles.navIcon} />
+            <Icon name='shieldAlert' size={20} className={styles.navIcon} />
           </button>
           <Popup
             isOpen={showSecurityInfo}
@@ -99,7 +99,7 @@ export function Navbar({
             aria-label='Keyboard Shortcuts'
             title='Commands'
           >
-            <Terminal size={20} className={styles.navIcon} />
+            <Icon name='terminal' size={20} className={styles.navIcon} />
           </button>
           <Menu
             isOpen={showShortcuts}
@@ -115,7 +115,7 @@ export function Navbar({
             aria-label='Python Reference'
             title='Reference'
           >
-            <BookOpen size={20} className={styles.navIcon} />
+            <Icon name='bookOpen' size={20} className={styles.navIcon} />
           </button>
         </div>
         <div className={styles.menuContainer}>

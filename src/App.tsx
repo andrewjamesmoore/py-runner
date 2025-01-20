@@ -86,13 +86,22 @@ __builtins__.open = None
     try {
       const pyodideInstance = await loadPyodide({
         indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/",
+        fullStdLib: false,
+        stdout: console.log,
+        stderr: console.error,
+      }).catch((error) => {
+        console.error("Pyodide loading error:", error);
+        throw new Error(`Failed to load Pyodide: ${error.message}`);
       });
 
       await setupPythonEnvironment(pyodideInstance);
       setPyodide(pyodideInstance);
-    } catch {
+    } catch (error) {
+      console.error("Initialization error:", error);
       setInitError(
-        "Failed to initialize Python environment. Please try again."
+        `Failed to initialize Python environment: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     } finally {
       setLoading(false);
