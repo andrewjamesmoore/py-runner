@@ -96,12 +96,14 @@
 
 .functionName {
   font: var(--text-alternate);
+  letter-spacing: var(--font-spacing);
   color: var(--color-accent);
   font-weight: 500;
 }
 
 .description {
   font: var(--text-alternate);
+  letter-spacing: var(--font-spacing);
   font-weight: 300;
   color: var(--color-text);
 }
