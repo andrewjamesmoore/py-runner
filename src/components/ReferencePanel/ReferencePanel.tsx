@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Icon } from "../Icon/Icon";
 import styles from "./ReferencePanel.module.css";
-import { BuiltinFunctions } from "../BuiltinFunctions/BuiltinFunctions";
+import { ReferenceContent } from "../ReferenceContent/ReferenceContent";
 
 interface ReferencePanelProps {
   isOpen: boolean;
@@ -106,11 +106,7 @@ export function ReferencePanel({
           <Icon name='grip' size={16} />
         </div>
         <div className={styles.content}>
-          <BuiltinFunctions
-            onExampleClick={(example) => {
-              onExecute(example);
-            }}
-          />
+          <ReferenceContent onExecute={onExecute} />
         </div>
       </div>
     </>

@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-smallest);
+  padding: var(--space-base);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface-alternate);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tab {
+  padding: var(--space-smallest) var(--space-base);
+  color: var(--color-text-secondary);
+  border-radius: 100px;
+  font: var(--text-alternate);
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.tab.active {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.tabButtons {
+  display: flex;
+  gap: var(--space-smallest);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: var(--space-smallest) var(--space-base);
+  border: 1px solid var(--color-border-alternate);
+  border-radius: var(--space-smallest);
+  transition: all 0.2s;
+  width: 240px;
+  min-width: 120px;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font: var(--text-alternate);
+  padding: 0;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.searchInput:focus {
+  outline: none;
+}
