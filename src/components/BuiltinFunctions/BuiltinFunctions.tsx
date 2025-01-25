@@ -1,33 +1,31 @@
-import { useState } from "react";
 import styles from "./BuiltinFunctions.module.css";
 import { BUILTIN_FUNCTIONS } from "../../data/builtinFunctions";
 import { Icon } from "../Icon/Icon";
 
-interface BuiltinFunctionsProps {
-  onExampleClick: (example: string) => void;
+interface PythonFunction {
+  name: string;
+  description: string;
+  example: string;
 }
 
-export function BuiltinFunctions({ onExampleClick }: BuiltinFunctionsProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+interface BuiltinFunctionsProps {
+  onExampleClick: (example: string) => void;
+  data?: PythonFunction[];
+  hideTitle?: boolean;
+  searchQuery?: string;
+}
 
-  const filteredFunctions = BUILTIN_FUNCTIONS.filter((fn) =>
+export function BuiltinFunctions({
+  onExampleClick,
+  data = BUILTIN_FUNCTIONS,
+  searchQuery = "",
+}: BuiltinFunctionsProps) {
+  const filteredFunctions = data.filter((fn) =>
     fn.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Built-in Functions</h2>
-        <div className={styles.searchBar}>
-          <input
-            type='text'
-            placeholder='Filter results...'
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          />
-        </div>
-      </div>
       <div className={styles.functionList}>
         {filteredFunctions.map((fn) => (
           <div key={fn.name} className={styles.functionCard}>
