@@ -1,4 +1,4 @@
-import styles from "./BuiltinFunctions.module.css";
+import styles from "./PythonDocs.module.css";
 import { Icon } from "../Icon/Icon";
 
 interface PythonFunction {
@@ -7,18 +7,18 @@ interface PythonFunction {
   example: string;
 }
 
-interface BuiltinFunctionsProps {
+interface PythonDocsProps {
   onExampleClick: (example: string) => void;
   data: PythonFunction[];
   hideTitle?: boolean;
   searchQuery?: string;
 }
 
-export function BuiltinFunctions({
+export function PythonDocs({
   onExampleClick,
   data,
   searchQuery = "",
-}: BuiltinFunctionsProps) {
+}: PythonDocsProps) {
   const filteredFunctions = data.filter((fn) =>
     fn.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

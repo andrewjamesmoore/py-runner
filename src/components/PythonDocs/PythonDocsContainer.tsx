@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchFunctions, fetchMethods } from "../../services/api";
-import { BuiltinFunctions } from "./BuiltinFunctions";
+import { PythonDocs } from "./PythonDocs";
 
 interface PythonDocsContainerProps {
   activeTab: "functions" | "methods";
@@ -41,7 +41,7 @@ export function PythonDocsContainer({
   if (loading) return <p>Loading Python {activeTab}...</p>;
 
   return (
-    <BuiltinFunctions
+    <PythonDocs
       data={data}
       onExampleClick={onExampleClick}
       searchQuery={searchQuery}

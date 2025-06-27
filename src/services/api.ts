@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8001";
+const API_BASE = "https://pyrunner.net";
 
 export async function fetchFunctions() {
   const res = await fetch(`${API_BASE}/functions`);
