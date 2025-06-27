@@ -1,5 +1,4 @@
 import styles from "./BuiltinFunctions.module.css";
-import { BUILTIN_FUNCTIONS } from "../../data/builtinFunctions";
 import { Icon } from "../Icon/Icon";
 
 interface PythonFunction {
@@ -10,14 +9,14 @@ interface PythonFunction {
 
 interface BuiltinFunctionsProps {
   onExampleClick: (example: string) => void;
-  data?: PythonFunction[];
+  data: PythonFunction[];
   hideTitle?: boolean;
   searchQuery?: string;
 }
 
 export function BuiltinFunctions({
   onExampleClick,
-  data = BUILTIN_FUNCTIONS,
+  data,
   searchQuery = "",
 }: BuiltinFunctionsProps) {
   const filteredFunctions = data.filter((fn) =>

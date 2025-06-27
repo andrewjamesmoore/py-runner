@@ -30,12 +30,6 @@ function App() {
     addToHistory,
     setCurrentInput,
   });
-
-  const handleReferenceExample = (code: string) => {
-    setCurrentInput(code);
-    setTimeout(() => handleCommand(), 0);
-  };
-    
   const [showSecurityInfo, setShowSecurityInfo] = useState(false);
   const [showReference, setShowReference] = useState(false);
   const editorRef = useRef<CodeMirror | null>(null);

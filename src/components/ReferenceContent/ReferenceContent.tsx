@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { BuiltinFunctions } from "../BuiltinFunctions/BuiltinFunctions";
 import styles from "./ReferenceContent.module.css";
-import { PYTHON_METHODS } from "../../data/pythonMethods";
+import { PythonDocsContainer } from "../PythonDocs/PythonDocsContainer";
 
 interface ReferenceContentProps {
   onExecute: (code: string) => void;
@@ -45,20 +44,12 @@ export function ReferenceContent({ onExecute }: ReferenceContentProps) {
         </div>
       </div>
       <div className={styles.content}>
-        {activeTab === "functions" ? (
-          <BuiltinFunctions
-            onExampleClick={onExecute}
-            hideTitle
-            searchQuery={searchQuery}
-          />
-        ) : (
-          <BuiltinFunctions
-            data={PYTHON_METHODS}
-            onExampleClick={onExecute}
-            hideTitle
-            searchQuery={searchQuery}
-          />
-        )}
+        <PythonDocsContainer
+          activeTab={activeTab}
+          onExampleClick={onExecute}
+          searchQuery={searchQuery}
+          hideTitle
+        />
       </div>
     </div>
   );
