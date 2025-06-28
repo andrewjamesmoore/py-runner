@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchFunctions, fetchMethods } from "../../services/api";
 import { PythonDocs } from "./PythonDocs";
+import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
 
 interface PythonDocsContainerProps {
   activeTab: "functions" | "methods";
@@ -38,7 +39,8 @@ export function PythonDocsContainer({
     fetchData();
   }, [activeTab]);
 
-  if (loading) return <p>Loading Python {activeTab}...</p>;
+  if (loading)
+    return <LoadingScreen>Loading Python {activeTab}...</LoadingScreen>;
 
   return (
     <PythonDocs

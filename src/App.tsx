@@ -48,7 +48,7 @@ function App() {
   });
 
   if (loading) {
-    return <LoadingScreen />;
+    return <LoadingScreen>Loading Python Environment...</LoadingScreen>;
   }
 
   if (initError) {
