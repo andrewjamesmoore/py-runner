@@ -1,7 +1,0 @@
-- name: Connect to EC2 and run deploy
-  run: |
-    echo "$SSH_PRIVATE_KEY" > key.pem
-    chmod 600 key.pem
-    ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_HOST }} 'echo it works!'
-  env:
-    SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
